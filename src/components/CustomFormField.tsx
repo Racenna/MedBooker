@@ -12,6 +12,10 @@ import {
 import { Input } from '@/components/ui/input';
 import { Control } from 'react-hook-form';
 import { FormFieldType } from './forms/PatientForm';
+import Image from 'next/image';
+import 'react-phone-number-input/style.css';
+import PhoneInput from 'react-phone-number-input';
+import { E164Number } from 'libphonenumber-js';
 
 interface Props {
   control: Control<any>; // TODO: replace any with type
@@ -29,7 +33,46 @@ interface Props {
 }
 
 const RenderField = ({ field, props }: { field: any; props: Props }) => {
-  return <Input type="text" placeholder="John Doe" />;
+  const { fieldType, iconSrc, iconAlt, placeholder } = props;
+  switch (fieldType) {
+    case FormFieldType.INPUT:
+      return (
+        <div className="flex rounded-md border border-dark-500 bg-dark-400">
+          {iconSrc && (
+            <Image
+              src={iconSrc}
+              alt={iconAlt || 'icon'}
+              height={24}
+              width={24}
+              className="w-auto h-auto ml-2"
+            />
+          )}
+          <FormControl>
+            <Input
+              {...field}
+              placeholder={placeholder}
+              className="shad-input border-0"
+            />
+          </FormControl>
+        </div>
+      );
+    case FormFieldType.PHONE_INPUT:
+      return (
+        <FormControl>
+          <PhoneInput
+            defaultCountry="UA"
+            placeholder={placeholder}
+            international
+            withCountryCallingCode
+            value={field.value as E164Number | undefined}
+            onChange={field.onChange}
+            className="input-phone"
+          />
+        </FormControl>
+      );
+    default:
+      break;
+  }
 };
 
 const CustomFormField = (props: Props) => {
