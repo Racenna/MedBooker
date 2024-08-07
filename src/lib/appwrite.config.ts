@@ -1,12 +1,21 @@
 import * as sdk from 'node-appwrite';
 
-const { NEXT_PUBLIC_ENDPOINT, PROJECT_ID, API_KEY } = process.env;
+export const {
+  PROJECT_ID,
+  API_KEY,
+  DATABASE_ID,
+  PATIENT_COLLECTION_ID,
+  DOCTOR_COLLECTION_ID,
+  APPOINTMENT_COLLECTION_ID,
+  NEXT_PUBLIC_BUCKET_ID: BUCKET_ID,
+  NEXT_PUBLIC_ENDPOINT: ENDPOINT,
+} = process.env;
 
-if (!NEXT_PUBLIC_ENDPOINT || !PROJECT_ID || !API_KEY) {
+if (!ENDPOINT || !PROJECT_ID || !API_KEY) {
   throw new Error('Missing environment variables for Appwrite configuration');
 }
 
-console.log('variables exists:', { NEXT_PUBLIC_ENDPOINT, PROJECT_ID, API_KEY });
+console.log('variables exists:', { ENDPOINT, PROJECT_ID, API_KEY });
 const client = new sdk.Client();
 
 client
