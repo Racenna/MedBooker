@@ -19,16 +19,24 @@ import { Label } from '@/components/ui/label';
 import { SelectItem } from '@/components/ui/select';
 import Image from 'next/image';
 import FileUploader from '../FileUploader';
-import { createAppointment } from '@/lib/actions/appointment.actions';
+import {
+  createAppointment,
+  updateAppointment,
+} from '@/lib/actions/appointment.actions';
+import { Appointment } from '@/types/appwrite.types';
 
-const NewAppointmentForm = ({
+const AppointmentForm = ({
   userId,
   patientId,
   type,
+  appointment,
+  setOpen,
 }: {
+  type: 'create' | 'cancel' | 'schedule';
   userId: string;
   patientId: string;
-  type: 'create' | 'cancel' | 'schedule';
+  appointment?: Appointment;
+  setOpen?: (open: boolean) => void;
 }) => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
@@ -39,11 +47,13 @@ const NewAppointmentForm = ({
     resolver: zodResolver(AppointmentFormValidation),
     defaultValues: {
       ...PatientFormDefaultValues,
-      primaryPhysician: '',
-      schedule: new Date(),
-      reason: '',
-      note: '',
-      cancellationReason: '',
+      primaryPhysician: appointment && appointment.primaryPhysician,
+      schedule: appointment
+        ? new Date(appointment.schedule)
+        : new Date(Date.now()),
+      reason: appointment ? appointment.reason : '',
+      note: appointment ? appointment.note : '',
+      cancellationReason: appointment?.cancellationReason ?? '',
     },
   });
 
@@ -58,6 +68,7 @@ const NewAppointmentForm = ({
         break;
       case 'cancel':
         status = 'cancelled';
+        break;
       default:
         status = 'pending';
         break;
@@ -82,6 +93,29 @@ const NewAppointmentForm = ({
           router.push(
             `/patients/${userId}/new-appointment/success?appointmentId=${appointment.$id}`
           );
+        }
+      } else {
+        const appointmentToUpdate = {
+          userId,
+          appointmentId: appointment?.$id!,
+          appointment: {
+            primaryPhysician: values?.primaryPhysician,
+            schedule: new Date(values?.schedule),
+            status: status as Status,
+            cancellationReason: values?.cancellationReason,
+          },
+          type,
+        };
+
+        console.log('checkpoint 1 -', appointmentToUpdate);
+
+        const updatedAppointment = await updateAppointment(appointmentToUpdate);
+
+        console.log('checkpoint 2 -', updatedAppointment);
+
+        if (updatedAppointment) {
+          setOpen && setOpen(false);
+          form.reset();
         }
       }
     } catch (error) {
@@ -111,12 +145,14 @@ const NewAppointmentForm = ({
         onSubmit={form.handleSubmit(onSubmit)}
         className="space-y-12 flex-1"
       >
-        <section className="space-y-4">
-          <h1 className="header">New appointment</h1>
-          <p className="text-dark-700">
-            Request a new appointment in 10 seconds
-          </p>
-        </section>
+        {type === 'create' && (
+          <section className="space-y-4">
+            <h1 className="header">New appointment</h1>
+            <p className="text-dark-700">
+              Request a new appointment in 10 seconds
+            </p>
+          </section>
+        )}
 
         {type !== 'cancel' && (
           <>
@@ -195,4 +231,4 @@ const NewAppointmentForm = ({
   );
 };
 
-export default NewAppointmentForm;
+export default AppointmentForm;
