@@ -28,9 +28,9 @@ const Success = async ({
       <div className="success-img">
         <Link href="/">
           <Image
-            src="/assets/icons/logo-full.svg"
-            height={1000}
-            width={1000}
+            src="/assets/icons/logo-full-dark.svg"
+            height={40}
+            width={200}
             alt="logo"
             className="h-10 w-fit"
           />
@@ -42,7 +42,7 @@ const Success = async ({
             height={400}
             width={380}
             alt="success"
-            className="h-10 w-fit"
+            className="h-24 w-fit"
           />
 
           <h2 className="header mb-6 max-w-[600px] text-center">

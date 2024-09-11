@@ -107,11 +107,7 @@ const AppointmentForm = ({
           type,
         };
 
-        console.log('checkpoint 1 -', appointmentToUpdate);
-
         const updatedAppointment = await updateAppointment(appointmentToUpdate);
-
-        console.log('checkpoint 2 -', updatedAppointment);
 
         if (updatedAppointment) {
           setOpen && setOpen(false);

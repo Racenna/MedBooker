@@ -15,7 +15,6 @@ if (!ENDPOINT || !PROJECT_ID || !API_KEY) {
   throw new Error('Missing environment variables for Appwrite configuration');
 }
 
-console.log('variables exists:', { ENDPOINT, PROJECT_ID, API_KEY });
 const client = new sdk.Client();
 
 client
