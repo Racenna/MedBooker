@@ -25,6 +25,8 @@ import {
 } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { Checkbox } from '@/components/ui/checkbox';
+import 'react-datepicker/dist/react-datepicker.css';
+
 interface Props {
   control: Control<any>; // TODO: replace any with type
   fieldType: FormFieldType;
