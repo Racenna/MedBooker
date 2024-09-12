@@ -100,8 +100,6 @@ export const updateAppointment = async ({
       throw new Error('Appointment not found');
     }
 
-    // SMS notification
-
     revalidatePath('/admin');
     return parseStringify(updatedAppointment);
   } catch (error) {

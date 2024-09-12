@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 import { columns } from '@/components/table/columns';
+import Logo from '@/components/Logo';
 
 const Admin = async () => {
   const appointments = await getRecentAppointmentList();
@@ -13,13 +14,7 @@ const Admin = async () => {
     <div className="mx-auto flex max-w-7xl flex-col space-y-14">
       <header className="admin-header">
         <Link href="/" className="cursor-pointer">
-          <Image
-            src="/assets/icons/logo-full-dark.svg"
-            height={40}
-            width={200}
-            alt="logo"
-            className="h-8 w-fit"
-          />
+          <Logo />
         </Link>
       </header>
 

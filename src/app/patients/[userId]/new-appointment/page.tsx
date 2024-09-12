@@ -4,6 +4,7 @@ import Image from 'next/image';
 import React from 'react';
 
 import * as Sentry from '@sentry/nextjs';
+import Logo from '@/components/Logo';
 
 const NewAppointment = async ({ params: { userId } }: SearchParamProps) => {
   const patient = await getPatient(userId);
@@ -14,13 +15,7 @@ const NewAppointment = async ({ params: { userId } }: SearchParamProps) => {
     <div className="flex h-screen max-h-screen">
       <section className="remove-scrollbar container">
         <div className="sub-container max-w-[860px] flex-1 justify-between">
-          <Image
-            src="/assets/icons/logo-full-dark.svg"
-            alt="patient"
-            height={40}
-            width={200}
-            className="mb-12 h-10 w-fit"
-          />
+          <Logo className="mb-12" />
 
           <AppointmentForm
             type="create"
@@ -35,8 +30,8 @@ const NewAppointment = async ({ params: { userId } }: SearchParamProps) => {
       <Image
         src="/assets/images/appointment-img.png"
         alt="patient"
-        width={1000}
-        height={1000}
+        width={800}
+        height={2000}
         className="side-img max-w-[390px] bg-bottom"
       />
     </div>

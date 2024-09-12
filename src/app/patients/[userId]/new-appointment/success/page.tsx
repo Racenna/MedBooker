@@ -8,6 +8,7 @@ import React from 'react';
 
 import * as Sentry from '@sentry/nextjs';
 import { getUser } from '@/lib/actions/patient.actions';
+import Logo from '@/components/Logo';
 
 const Success = async ({
   params: { userId },
@@ -27,13 +28,7 @@ const Success = async ({
     <div className="flex h-screen max-h-screen px-[5%]">
       <div className="success-img">
         <Link href="/">
-          <Image
-            src="/assets/icons/logo-full-dark.svg"
-            height={40}
-            width={200}
-            alt="logo"
-            className="h-10 w-fit"
-          />
+          <Logo />
         </Link>
 
         <section className="flex flex-col items-center">

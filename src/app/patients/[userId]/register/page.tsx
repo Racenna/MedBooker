@@ -3,6 +3,7 @@ import { getUser } from '@/lib/actions/patient.actions';
 import Image from 'next/image';
 
 import * as Sentry from '@sentry/nextjs';
+import Logo from '@/components/Logo';
 
 const Register = async ({ params: { userId } }: SearchParamProps) => {
   const user = await getUser(userId);
@@ -13,13 +14,7 @@ const Register = async ({ params: { userId } }: SearchParamProps) => {
     <div className="flex h-screen max-h-screen">
       <section className="remove-scrollbar container">
         <div className="sub-container max-w-[860px] flex-1 flex-col py-10">
-          <Image
-            src="/assets/icons/logo-full-dark.svg"
-            alt="patient"
-            height={40}
-            width={200}
-            className="mb-12 h-10 w-fit"
-          />
+          <Logo className="mb-12" />
 
           <RegisterForm user={user} />
 
@@ -30,8 +25,8 @@ const Register = async ({ params: { userId } }: SearchParamProps) => {
       <Image
         src="/assets/images/register-img.png"
         alt="patient"
-        width={1000}
-        height={1000}
+        width={800}
+        height={2200}
         className="side-img max-w-[390px]"
       />
     </div>
