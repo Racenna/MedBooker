@@ -44,3 +44,4 @@ cypress/videos/
 
 # tmp
 .swc/
+*storybook.log
