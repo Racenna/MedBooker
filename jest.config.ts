@@ -13,6 +13,7 @@ const config: Config = {
     '^@/(.*)$': '<rootDir>/$1',
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
+  testPathIgnorePatterns: ['<rootDir>/(node_modules|.next)/'],
 };
 
 export default createJestConfig(config);
