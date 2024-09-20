@@ -1,0 +1,2 @@
+import './appwriteMock';
+import './next';

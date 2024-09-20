@@ -9,7 +9,7 @@ import SubmitButton from '../SubmitButton';
 import { useState } from 'react';
 import { PatientFormValidation } from '@/lib/validation';
 import { useRouter } from 'next/navigation';
-import { createUser, registerPatient } from '@/lib/actions/patient.actions';
+import { registerPatient } from '@/lib/actions/patient.actions';
 import { FormFieldType } from './PatientForm';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import {
@@ -42,10 +42,7 @@ const RegisterForm = ({ user }: { user: User }) => {
 
     let formData;
 
-    if (
-      values.identificationDocument &&
-      values.identificationDocument.length > 0
-    ) {
+    if (values.identificationDocument && values.identificationDocument.length > 0) {
       const blobFile = new Blob([values.identificationDocument[0]], {
         type: values.identificationDocument[0].type,
       });
@@ -74,10 +71,7 @@ const RegisterForm = ({ user }: { user: User }) => {
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-12 flex-1"
-      >
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-12 flex-1">
         <section className="space-y-4">
           <h1 className="header">Welcome</h1>
           <p className="text-dark-700">Let us know more about yourself</p>

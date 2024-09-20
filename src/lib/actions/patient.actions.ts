@@ -27,14 +27,14 @@ export const createUser = async (user: CreateUserParams) => {
 
     return parseStringify(newUser);
   } catch (error: any) {
-    if (error && error?.code === 409) {
-      const existingUser = await users.list([
-        Query.equal('email', [user.email]),
-      ]);
-
-      return existingUser.users[0];
-    }
     console.error('An error occurred while creating a new user:', error);
+    if (error && error?.code === 409) {
+      // const existingUser = await users.list([Query.equal('email', [user.email])]);
+
+      // TODO - create login page for existing users
+      return error?.message ?? null;
+      // return existingUser.users[0];
+    }
   }
 };
 
@@ -83,11 +83,9 @@ export const registerPatient = async ({
 
 export const getPatient = async (userId: string) => {
   try {
-    const patients = await databases.listDocuments(
-      DATABASE_ID!,
-      PATIENT_COLLECTION_ID!,
-      [Query.equal('userId', userId)]
-    );
+    const patients = await databases.listDocuments(DATABASE_ID!, PATIENT_COLLECTION_ID!, [
+      Query.equal('userId', userId),
+    ]);
 
     return parseStringify(patients.documents[0]);
   } catch (error) {

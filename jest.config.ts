@@ -12,14 +12,20 @@ const clientTestConfig: Config = {
   displayName: 'client',
   testEnvironment: 'jest-environment-jsdom',
   testMatch: ['<rootDir>/__tests__/client/**/*.test.tsx'],
-  setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
+  setupFilesAfterEnv: [
+    '<rootDir>/jest.setup.ts',
+    '<rootDir>/__mocks__/index.ts',
+  ],
 };
 
 const serverTestConfig: Config = {
   displayName: 'server',
   testEnvironment: 'node',
   testMatch: ['<rootDir>/__tests__/server/**/*.test.ts'],
-  setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
+  setupFilesAfterEnv: [
+    '<rootDir>/jest.setup.ts',
+    '<rootDir>/__mocks__/index.ts',
+  ],
 };
 
 async function getJestConfig(): Promise<Config> {
